@@ -29,11 +29,12 @@ class CategoryController extends Controller
     // Update the category
     public function update(Request $request, Category $category){
         $request->validate([
-            'title' => ['required', 'max:255', 'string', 'unique:brands,title']
+            'title' => ['required', 'max:255', 'string'],
+            'slug' => ['required', 'max:255', 'string']
         ]);
         $category->update([
             'title' => $request->title,
-            'slug'=> str_replace(' ', '-', strtolower($request->title))
+            'slug'=> str_replace(' ', '-', strtolower($request->slug))
         ]);
         return back()->with('success', 'Category has been updated!');
     }
