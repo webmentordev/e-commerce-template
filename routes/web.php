@@ -3,6 +3,7 @@
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
@@ -14,12 +15,6 @@ use App\Livewire\Cart;
 use App\Livewire\Home;
 use App\Livewire\Product;
 use App\Livewire\Products;
-use App\Mail\Canceled;
-use App\Mail\Completed;
-use App\Mail\Pending;
-use App\Mail\Processed;
-use App\Mail\Refunded;
-use App\Mail\Transit;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class)->name('home');
@@ -80,12 +75,11 @@ Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->group(func
         Route::post('/gallery/store/', [GalleryController::class, 'store'])->name('gallery.store');
         Route::patch('/gallery/store/{gallery:slug}', [GalleryController::class, 'status'])->name('gallery.status');
         Route::delete('/gallery/delete/{gallery:slug}', [GalleryController::class, 'delete'])->name('gallery.delete');
+
+        Route::get('/product-discounts', [DiscountController::class, 'index'])->name('product.discount');
+        Route::post('/product-discount/store/', [DiscountController::class, 'store'])->name('product.discount.store');
+        Route::delete('/product-discount/delete/{discount:slug}', [DiscountController::class, 'delete'])->name('product.discount.delete');
     });
-});
-
-
-Route::get('/email', function(){
-    return new Transit('515515555112331', 'asdasdasd', 'Fedex');
 });
 
 require __DIR__.'/auth.php';

@@ -1,5 +1,6 @@
 ## Project Details
-* Stripe integration
+This project is a starter template for an ecommerce website
+* Stripe integration (Not paypal)
 * Create products (need Category & Brand)
 * Products has relation with category & brand
 * Upload images for product details body using CKEditor
@@ -11,6 +12,8 @@
 * Tags for the products to quick search related products
 * Tags and products has a relation and separate system
 * Tag for product should be unique (protect tags from duplication)
+* Product has discount system (relation system)
+* Create/Add discount for each product
 * Pending email (url - string)
 * Processed email (orderID - string)
 * Canceled email (orderID - string)
@@ -22,3 +25,4 @@
 * Option to Send email or not when status change
 * Gallery to upload pictures about the product
 * Gallery images will showup in the single product page
+* Home, product, cart & products pages are build with Livewire
