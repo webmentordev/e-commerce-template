@@ -1,21 +1,22 @@
 <?php
 
-use App\Http\Controllers\BrandController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\DiscountController;
-use App\Http\Controllers\GalleryController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductTagController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\TagController;
 use App\Livewire\Cart;
 use App\Livewire\Home;
 use App\Livewire\Product;
 use App\Livewire\Products;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\BrandController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\ProductTagController;
 
 Route::get('/', Home::class)->name('home');
 Route::get('/products', Products::class)->name('products');
@@ -23,8 +24,11 @@ Route::get('/product/{product:slug}', Product::class)->name('product');
 Route::get('/cart', Cart::class)->name('cart');
 
 // Order payment status routes
-Route::get('/complete/{order:order_id}', [OrderController::class, 'complete']);
-Route::get('/cancel/{order:order_id}', [OrderController::class, 'cancel']);
+Route::get('/complete/{order:order_id}', [OrderController::class, 'complete'])->name('completed');
+Route::get('/cancel/{order:order_id}', [OrderController::class, 'cancel'])->name('canceled');
+
+// Newsletter Subscription
+Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.create');
 
 Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->group(function () {
     // Route for dashboard, admin only
@@ -79,6 +83,8 @@ Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->group(func
         Route::get('/product-discounts', [DiscountController::class, 'index'])->name('product.discount');
         Route::post('/product-discount/store/', [DiscountController::class, 'store'])->name('product.discount.store');
         Route::delete('/product-discount/delete/{discount:slug}', [DiscountController::class, 'delete'])->name('product.discount.delete');
+
+        Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletters');
     });
 });
 

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('payment')->default('pending');
             $table->string('shipping')->default('pending');
             $table->text('order_id');
-            $table->text('url');
+            $table->text('url')->nullable();
             $table->timestamps();
         });
     }
