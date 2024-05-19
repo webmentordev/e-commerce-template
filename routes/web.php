@@ -9,6 +9,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +30,9 @@ Route::get('/cancel/{order:order_id}', [OrderController::class, 'cancel'])->name
 
 // Newsletter Subscription
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.create');
+
+Route::get('/contact', [ContactController::class, 'create'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store']);
 
 Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->group(function () {
     // Route for dashboard, admin only
@@ -85,6 +89,8 @@ Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->group(func
         Route::delete('/product-discount/delete/{discount:slug}', [DiscountController::class, 'delete'])->name('product.discount.delete');
 
         Route::get('/newsletters', [NewsletterController::class, 'index'])->name('newsletters');
+
+        Route::get('/contacts', [ContactController::class, 'index'])->name('contacts');
     });
 });
 
