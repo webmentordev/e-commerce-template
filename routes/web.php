@@ -15,6 +15,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\TrackingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\ProductTagController;
@@ -31,8 +32,12 @@ Route::get('/cancel/{order:order_id}', [OrderController::class, 'cancel'])->name
 // Newsletter Subscription
 Route::post('/newsletter/subscribe', [NewsletterController::class, 'store'])->name('newsletter.create');
 
+// Contact routes
 Route::get('/contact', [ContactController::class, 'create'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store']);
+
+// Track Order routes
+Route::get('/track-order', [TrackingController::class, 'index'])->name('track.order');
 
 Route::middleware(['auth', 'verified', 'is_admin'])->prefix('admin')->group(function () {
     // Route for dashboard, admin only
